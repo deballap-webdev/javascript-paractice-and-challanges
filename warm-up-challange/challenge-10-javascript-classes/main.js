@@ -7,7 +7,7 @@ class customError extends Error {
   }
 }
 
-class book {
+class Book {
   #readProgress = 0;
 
   constructor(title = "Unknown", author = "Unknown author", pages) {
@@ -51,12 +51,12 @@ class book {
   }
 }
 
-const myBook = new book("The Game", "Charles Pope", 92);
+const myBook = new Book("The Game", "Charles Pope", 92);
 myBook.setReadProgress(10);
 myBook.readPage();
 console.log(myBook.getReadProgress());
 
-class AudioBook extends book {
+class AudioBook extends Book {
   #narrator = "male";
   constructor(title, author, pages = 0, narrator = "male") {
     super(title, author, pages);
@@ -81,15 +81,15 @@ class AudioBook extends book {
   }
 }
 
-try {
-  const myAudioBook = new AudioBook("New World", "Miles Walker", 73);
-  myAudioBook.aboutBook();
-  const newAudioBook = new AudioBook(28, "John Doe", "jsj sj");
-  newAudioBook.aboutBook();
-} catch (err) {
-  console.log(err);
-} finally {
-  console.log(
-    `The error was either caught or the try block code ran succesfully!`,
-  );
-}
+const myAudioBook = new AudioBook("New World", "Miles Walker", 73, "Female");
+myAudioBook.aboutBook();
+
+sessionStorage.setItem("audioBookStore", JSON.stringify(myAudioBook));
+const audioBookSessionData = JSON.parse(
+  sessionStorage.getItem("audioBookStore"),
+);
+console.log(audioBookSessionData);
+
+localStorage.setItem("bookStore", JSON.stringify(myBook));
+const bookLocalstoreData = JSON.parse(localStorage.getItem("bookStore"));
+console.log(bookLocalstoreData);
