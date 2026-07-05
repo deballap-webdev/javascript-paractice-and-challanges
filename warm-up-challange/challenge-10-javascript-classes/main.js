@@ -27,8 +27,15 @@ class book {
       this.#readProgress = readProgressToNum;
     }
   }
+
+  readPage() {
+    if (this.#readProgress < this._pages) {
+      this.#readProgress++;
+    }
+  }
 }
 
 const myBook = new book("The Game", "Charles Pope", 92);
 myBook.setReadProgress(10);
+myBook.readPage();
 console.log(myBook.getReadProgress());
