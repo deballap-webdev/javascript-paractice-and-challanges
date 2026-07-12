@@ -1,0 +1,33 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: rgb(88, 87, 87);
+  font-size: 1.5rem;
+}
+
+.textarea {
+  font: inherit;
+  background-color: rgb(120, 162, 196);
+  border-radius: 10px;
+  margin-block: 12px;
+  color: #fff;
+  padding: 1em;
+}
+
+.red {
+  color: red;
+}
+
+.yellow {
+  color: yellow;
+}
