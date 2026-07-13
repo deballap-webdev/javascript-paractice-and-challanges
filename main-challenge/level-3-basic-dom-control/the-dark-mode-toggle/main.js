@@ -15,5 +15,6 @@ const initApp = () => {
         ? "Toggle Light-Mode"
         : "Toggle Dark-Mode";
     button.textContent = buttonText;
+    button.blur();
   });
 };
