@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <title>Quiz Flashcards</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <h1 class="heading">Quiz Flashcards</h1>
+
+    <ul id="question-list" class="question-list">
+      <li class="questions" id="question-1">
+        What is the difference between let and const?
+      </li>
+      <li class="questions" id="question-2">
+        What does event.prevent Default() do?
+      </li>
+      <li class="questions" id="question-3">
+        What is the purpose of localStorage?
+      </li>
+    </ul>
+
+    <section id="answer-group" class="answer-group">
+      <button class="answer-group__exit-button">&times;</button>
+      <p class="answers" id="question-1_answer">
+        let allows you to reassign a variable's value later in you code, whereas
+        const creates a read-only reference that cannot be reassigned after it
+        is declared.
+      </p>
+
+      <p class="answers" id="question-2_answer">
+        It stops the browser's default behavior for a specific event. For
+        example, it prevents a form from reloading the entire web page when the
+        submit button is clicked.
+      </p>
+
+      <p class="answers" id="question-3_answer">
+        localStorage is a web storage API that allows you to save key-value data
+        directly in the user's browser. This data has no expiration date and
+        remains intact even if the page is refreshed or the browser is closed
+      </p>
+    </section>
+  </body>
+</html>
