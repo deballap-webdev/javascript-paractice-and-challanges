@@ -7,47 +7,35 @@ document.addEventListener("readystatechange", (event) => {
 
 const initApp = () => {
   const questionButtons = document.querySelectorAll(".question-list__button");
-
-  let holdAnswer = null;
-  let holdArrow = null;
-  const activeAccordionStateTracker = (arrow, answer) => {
-    if (arrow && answer) {
-      if (
-        arrow.classList.contains("activeArrow") &&
-        answer.classList.contains("displayBlock")
-      ) {
-        arrow.classList.remove("activeArrow");
-        answer.classList.remove("displayBlock");
-        answer.classList.add("displayNone");
-      } else {
-        console.log(`something is wrong!`);
-      }
-    }
-  };
+  let activeAccordion = null;
 
   questionButtons.forEach((questionButton) => {
     questionButton.addEventListener("click", (event) => {
+      const answers = document.querySelectorAll(".answer");
       const answer = questionButton.parentElement.querySelector(
         ".answer-container .answer",
       );
       const arrow = questionButton.querySelector(".arrow");
-      if (holdAnswer !== answer && holdArrow !== arrow) {
-        activeAccordionStateTracker(holdArrow, holdAnswer);
+      if (activeAccordion !== null && activeAccordion !== questionButton) {
+        answers.forEach((answer) => {
+          if (answer.classList.contains("displayBlock")) {
+            activeAccordion
+              .querySelector(".arrow")
+              .classList.remove("activeArrow");
+            answer.classList.remove("displayBlock");
+            answer.classList.add("displayNone");
+          }
+        });
       } else {
-        holdAnswer = null;
-        holdArrow = null;
+        activeAccordion = null;
       }
+
       answer.classList.toggle("displayBlock");
       answer.classList.toggle("displayNone");
       arrow.classList.toggle("activeArrow");
-
-      console.log(
-        arrow.classList.contains("activeArrow") &&
-          answer.classList.contains("displayBlock"),
-      );
-
-      holdAnswer = answer;
-      holdArrow = arrow;
+      if (answer.classList.contains("displayBlock")) {
+        activeAccordion = questionButton;
+      }
     });
   });
 };
