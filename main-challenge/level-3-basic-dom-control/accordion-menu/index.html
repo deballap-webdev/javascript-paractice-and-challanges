@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <title>Accordion Menu</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <h1 class="heading">Accordion Menu</h1>
+
+    <ul id="question-list" class="question-list">
+      <li class="question-list__item" id="question-list__item-1">
+        <button
+          type="button"
+          class="question-list__button"
+          id="question-list__button-1"
+        >
+          What is the difference between let and const?<span class="arrow"
+            >&#9660;</span
+          >
+        </button>
+
+        <div class="answer-container">
+          <p class="answer displayNone" id="question-1_answer">
+            let allows you to reassign a variable's value later in you code,
+            whereas const creates a read-only reference that cannot be
+            reassigned after it is declared.
+          </p>
+        </div>
+      </li>
+      <li class="question-list__item" id="question-list__item-2">
+        <button
+          type="button"
+          class="question-list__button"
+          id="question-list__button-2"
+        >
+          What does event.prevent Default() do?<span class="arrow"
+            >&#9660;</span
+          >
+        </button>
+        <div class="answer-container">
+          <p class="answer displayNone" id="question-2_answer">
+            It stops the browser's default behavior for a specific event. For
+            example, it prevents a form from reloading the entire web page when
+            the submit button is clicked.
+          </p>
+        </div>
+      </li>
+      <li class="question-list__item" id="question-list__item-3">
+        <button
+          type="button"
+          class="question-list__button"
+          id="question-list__button-3"
+        >
+          What is the purpose of localStorage?<span class="arrow">&#9660;</span>
+        </button>
+        <div class="answer-container">
+          <p class="answer displayNone" id="question-3_answer">
+            localStorage is a web storage API that allows you to save key-value
+            data directly in the user's browser. This data has no expiration
+            date and remains intact even if the page is refreshed or the browser
+            is closed
+          </p>
+        </div>
+      </li>
+    </ul>
+  </body>
+</html>
