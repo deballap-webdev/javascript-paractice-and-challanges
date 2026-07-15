@@ -135,8 +135,12 @@ button:hover {
 .list li {
   margin-bottom: 20px;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-between;
+}
+
+.list li button:first-child {
+  text-align: justify;
 }
 
 .list li:hover {
@@ -144,7 +148,8 @@ button:hover {
 }
 
 .options {
-  flex-flow: row wrap;
+  align-items: self-end;
+  flex-flow: row nowrap;
   gap: clamp(0.5rem, 2vw, 1rem);
   font-size: clamp(0.8rem, 2.5vw, 1.2rem);
   color: #000;
