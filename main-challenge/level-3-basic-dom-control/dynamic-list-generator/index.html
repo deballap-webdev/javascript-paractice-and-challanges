@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic list generator</title>
+    <link rel="icon" href="img/list-items.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1 class="heading">List Generator</h1>
+      <form class="add-list-item-form" id="add-list-item-form">
+        <label for="add-list-input" class="off-screen"
+          >Add List-Item Input
+        </label>
+
+        <textarea
+          rows="1"
+          name="add-list-input"
+          id="add-list-input"
+          autofocus
+          required
+          placeholder="input your list item here"
+        ></textarea>
+
+        <button id="add-list-item-btn" type="submit">Add Item</button>
+      </form>
+
+      <section class="list-section" id="list-section">
+        <h2 class="heading">Your List</h2>
+        <ul class="list">
+          <li>
+            <button type="button">Eat</button
+            ><span class="options displayNone"
+              ><button>remove</button> <button>Modify</button>
+              <button>Strike</button></span
+            >
+          </li>
+          <li>
+            <button type="button">Sleep</button
+            ><span class="options displayNone"
+              ><button>remove</button> <button>Modify</button>
+              <button>Strike</button></span
+            >
+          </li>
+          <li>
+            <button type="button">Code</button
+            ><span class="options displayNone"
+              ><button>remove</button> <button>Modify</button>
+              <button>Strike</button></span
+            >
+          </li>
+          <li>
+            <button type="button">Repeat</button
+            ><span class="options displayNone"
+              ><button>remove</button> <button>Modify</button>
+              <button>strike</button></span
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

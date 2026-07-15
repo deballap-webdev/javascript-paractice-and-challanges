@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* || RESET */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* || GENERAL STYLES*/
+
+:root {
+  --BODY-FS: clamp(1.2rem, 2.5vh, 1.8rem);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #3d5166;
+  color: #eee;
+  font-size: var(--BODY-FS);
+  font-family: "Poppins", sans-serif;
+  padding: 0.6rem 1.2rem;
+}
+
+main {
+  min-width: max(60vw, 320px);
+  max-width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.heading {
+  margin-bottom: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* || UTILITIES */
+
+.off-screen {
+  position: absolute;
+  left: 100000px;
+}
+
+.displayFlex {
+  display: flex;
+}
+
+.displayNone {
+  display: none;
+}
+
+/* || Add Item Form */
+.add-list-item-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.label-input-container {
+  width: fit-content;
+}
+
+.add-list-item-form label {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+
+.add-list-item-form textarea {
+  resize: none;
+  overflow-y: hidden;
+}
+
+.add-list-item-form textarea::placeholder {
+  font-weight: light;
+  font-style: italic;
+  font-size: calc(var(--BODY-FS) - 0.2rem);
+}
+
+.add-list-item-form button,
+.add-list-item-form textarea {
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  box-shadow: 3px 1px 2px #000;
+  border: 1px solid #000;
+}
+
+.add-list-item-form button {
+  margin-top: 10px;
+  background-color: steelblue;
+  width: fit-content;
+}
+
+.add-list-item-form:is(button:hover, button:focus) {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+.add-list-item-form button:active {
+  filter: brightness(1.2);
+  transform: scale(0.95);
+}
+
+/* || List Section */
+
+.list-section {
+  margin-top: 60px;
+}
+
+.list {
+  padding: 10px;
+}
+
+.list li {
+  margin-bottom: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.list li:hover {
+  color: aliceblue;
+}
+
+.options {
+  flex-flow: row wrap;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  font-size: clamp(0.8rem, 2.5vw, 1.2rem);
+  color: #000;
+}
+
+.options button {
+  background-color: aliceblue;
+  padding-inline: 0.4em;
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.list li:hover .options {
+  display: flex;
+}
