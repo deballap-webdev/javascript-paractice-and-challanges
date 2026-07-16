@@ -75,7 +75,8 @@ button:hover {
 }
 
 /* || Add Item Form */
-.add-list-item-form {
+.add-list-item-form,
+.modify-list-item-form {
   display: flex;
   flex-direction: column;
   width: 100%;

@@ -17,7 +17,6 @@ const initApp = () => {
   const addListItemInput = addListItemForm.querySelector("textarea");
   const listSection = taskManagementSection.querySelector("#list-section");
   const list = listSection.querySelector(".list");
-  const optionGroup = [];
   const listSectionDisplay = () => {
     if (!list.hasChildNodes()) {
       listSection.style.display = "none";
@@ -31,28 +30,30 @@ const initApp = () => {
   const modifyListItemForm = modifyListItemSection.querySelector("form");
   const modifyListItemInput =
     modifyListItemForm.querySelector("#modify-list-input");
+  const confirmModifyButton =
+    modifyListItemForm.querySelector("#confirm-modify");
+  const cancelModifyButton = modifyListItemForm.querySelector("#cancel-modify");
+  confirmModifyButton.classList.add("displayNone");
 
   const elasticInputField = (inputField) => {
     inputField.addEventListener("input", (event) => {
-      event.target.style.height = "auto";
-      event.target.style.height = event.target.scrollHeight + "px";
+      inputField.style.height = "auto";
+      inputField.style.height = event.target.scrollHeight + "px";
     });
   };
 
-  elasticInputField(addListItemForm);
+  elasticInputField(addListItemInput);
 
   addListItemForm.addEventListener("submit", (event) => {
     event.preventDefault();
     addListItemInput.style.height = "auto";
     const newListItemValue = addListItemInput.value;
     const newListItem = document.createElement("li");
-
     newListItem.innerHTML = `<button class="strikeable" type="button">${newListItemValue}</button><span class="options displayNone"><button>remove</button> <button>modify</button><button>strike</button></span>`;
     list.append(newListItem);
     addListItemInput.value = "";
     listSectionDisplay();
     const option = newListItem.querySelector(".options");
-    optionGroup.push(option);
 
     option.querySelectorAll("button").forEach((optionBtn) => {
       optionBtn.addEventListener("click", (event) => {
@@ -79,7 +80,6 @@ const initApp = () => {
           listItemToModify = optionBtn
             .closest("li")
             .querySelector(".strikeable");
-          handleModifyOperation();
         }
       });
     });
@@ -103,53 +103,50 @@ const initApp = () => {
     });
   });
 
-  const handleModifyOperation = () => {
-    elasticInputField(modifyListItemInput);
-    if (!modifyListItemForm.classList.contains("displayNone")) {
-      const confirmModifyButton =
-        modifyListItemForm.querySelector("#confirmModify");
-      const cancelModifyButton =
-        modifyListItemForm.querySelector("#cancelModify");
+  elasticInputField(modifyListItemInput);
+
+  modifyListItemInput.addEventListener("input", (event) => {
+    if (!confirmModifyButton.classList.contains("displayNone")) {
       confirmModifyButton.classList.add("displayNone");
-
-      modifyListItemInput.addEventListener("input", (event) => {
-        if (
-          modifyListItemInput.value !== listItemToModify.textContent &&
-          modifyListItemInput.value.trim() !== ""
-        ) {
-          confirmModifyButton.classList.remove("displayNone");
-          modifiedListItemValue = modifyListItemInput.value;
-        } else {
-          if (!confirmModifyButton.classList.contains("displayNone")) {
-            confirmModifyButton.classList.add("displayNone");
-          }
-        }
-      });
-
-      confirmModifyButton.addEventListener("click", (event) => {
-        const isModifyConfirmed = confirm(
-          `are you sure you want to make these changes to your list\nOriginal List Item: ${listItemToModify.textContent}\nNew List Item: ${modifiedListItemValue}`,
-        );
-
-        if (isModifyConfirmed) {
-          modifyListItemSection.classList.add("displayNone");
-          taskManagementSection.classList.remove("displayNone");
-          listItemToModify.textContent = modifiedListItemValue;
-          listItemToModify = null;
-          modifiedListItemValue = null;
-        } else {
-          modifyListItemInput.value = modifiedListItemValue;
-        }
-      });
-
-      cancelModifyButton.addEventListener("click", (event) => {
-        listItemToModify = null;
-        modifiedListItemValue = null;
-        modifyListItemSection.classList.add("displayNone");
-        taskManagementSection.classList.remove("displayNone");
-      });
     }
-  };
+    if (
+      modifyListItemInput.value !== listItemToModify.textContent &&
+      modifyListItemInput.value.trim() !== ""
+    ) {
+      confirmModifyButton.classList.remove("displayNone");
+      modifiedListItemValue = modifyListItemInput.value;
+    } else {
+      if (!confirmModifyButton.classList.contains("displayNone")) {
+        confirmModifyButton.classList.add("displayNone");
+      }
+    }
+  });
+
+  confirmModifyButton.addEventListener("click", (event) => {
+    const isModifyConfirmed = confirm(
+      `are you sure you want to make these changes to your list\nOriginal List Item: ${listItemToModify.textContent}\nNew List Item: ${modifiedListItemValue}`,
+    );
+
+    if (isModifyConfirmed) {
+      modifyListItemSection.classList.add("displayNone");
+      taskManagementSection.classList.remove("displayNone");
+      listItemToModify.textContent = modifiedListItemValue;
+      listItemToModify = null;
+      modifiedListItemValue = null;
+    } else {
+      modifyListItemInput.value = modifiedListItemValue;
+    }
+  });
+
+  cancelModifyButton.addEventListener("click", (event) => {
+    listItemToModify = null;
+    modifiedListItemValue = null;
+    modifyListItemSection.classList.add("displayNone");
+    taskManagementSection.classList.remove("displayNone");
+    if (!confirmModifyButton.classList.contains("displayNone")) {
+      confirmModifyButton.classList.add("displayNone");
+    }
+  });
 
   modifyListItemForm.addEventListener("submit", (event) => {
     event.preventDefault();
