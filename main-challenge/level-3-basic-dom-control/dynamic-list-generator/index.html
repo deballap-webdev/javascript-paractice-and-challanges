@@ -11,26 +11,47 @@
   <body>
     <main>
       <h1 class="heading">List Generator</h1>
-      <form class="add-list-item-form" id="add-list-item-form">
-        <label for="add-list-input" class="off-screen"
-          >Add List-Item Input
-        </label>
 
-        <textarea
-          rows="1"
-          name="add-list-input"
-          id="add-list-input"
-          autofocus
-          required
-          placeholder="input your list item here"
-        ></textarea>
+      <section id="task-management">
+        <h2 class="heading">Task Manager</h2>
+        <form class="add-list-item-form" id="add-list-item-form">
+          <label for="add-list-input" class="off-screen"
+            >Add List-Item Input
+          </label>
 
-        <button id="add-list-item-btn" type="submit">Add Item</button>
-      </form>
+          <textarea
+            rows="1"
+            name="add-list-input"
+            id="add-list-input"
+            autofocus
+            required
+            placeholder="input your list item here"
+          ></textarea>
 
-      <section class="list-section" id="list-section">
-        <h2 class="heading">Your List</h2>
-        <ul class="list"></ul>
+          <button id="add-list-item-btn" type="submit">Add Item</button>
+        </form>
+
+        <section class="list-section" id="list-section">
+          <h3 class="heading">Your List</h3>
+          <ul class="list"></ul>
+        </section>
+      </section>
+      <section id="modify-list-item" class="modify-list-item displayNone">
+        <h2 class="heading">Modify List Item</h2>
+        <form class="modify-list-item-form" id="modifyListItemForm">
+          <label for="modify-list-input"></label>
+          <textarea
+            rows="1"
+            name="modify-list-input"
+            id="modify-list-input"
+            required
+            placeholder="make changes to list item"
+          ></textarea>
+          <div>
+            <button type="submit" id="confirmModify">Confirm</button>
+            <button type="button" id="cancelModify">Cancel</button>
+          </div>
+        </form>
       </section>
     </main>
   </body>
