@@ -10,6 +10,12 @@ const initApp = () => {
   let modifiedListItemValue = null;
   let listItemToModify = null;
 
+  const clearParent = (parent) => {
+    while (parent.lastChild) {
+      parent.lastChild.remove();
+    }
+  };
+  const guidePlaceholder = document.querySelector("#guide-placeholder");
   const taskManagementSection = document.querySelector("#task-management");
   const addListItemForm = taskManagementSection.querySelector(
     "#add-list-item-form",
@@ -17,12 +23,22 @@ const initApp = () => {
   const addListItemInput = addListItemForm.querySelector("textarea");
   const listSection = taskManagementSection.querySelector("#list-section");
   const list = listSection.querySelector(".list");
+
+  const guidePlaceholderDisplay = () => {
+    if (listSection.style.display === "none") {
+      guidePlaceholder.style.display = "";
+    } else {
+      guidePlaceholder.style.display = "none";
+    }
+  };
+
   const listSectionDisplay = () => {
     if (!list.hasChildNodes()) {
       listSection.style.display = "none";
     } else {
       listSection.style.display = "";
     }
+    guidePlaceholderDisplay();
   };
   listSectionDisplay();
 
@@ -33,6 +49,19 @@ const initApp = () => {
   const confirmModifyButton =
     modifyListItemForm.querySelector("#confirm-modify");
   const cancelModifyButton = modifyListItemForm.querySelector("#cancel-modify");
+  const bulkActionBtns = listSection.querySelectorAll(
+    "#bulk-action-btn-group button",
+  );
+  const clearButton = listSection.querySelector(
+    "#bulk-action-btn-group #clear-btn",
+  );
+  const strikeAllButton = listSection.querySelector(
+    "#bulk-action-btn-group #strike-all-btn",
+  );
+  const unstrikeAllButton = listSection.querySelector(
+    "#bulk-action-btn-group #unstrike-all-btn",
+  );
+
   confirmModifyButton.classList.add("displayNone");
 
   const elasticInputField = (inputField) => {
@@ -40,6 +69,60 @@ const initApp = () => {
       inputField.style.height = "auto";
       inputField.style.height = event.target.scrollHeight + "px";
     });
+  };
+
+  const getListItems = () => {
+    return list.children;
+  };
+
+  const getStruckItems = () => {
+    return [...list.querySelectorAll(".strikeable")].filter(
+      (child) => child.style.textDecoration === "line-through",
+    );
+  };
+
+  const getUnstruckItems = () => {
+    return [...list.querySelectorAll(".strikeable")].filter(
+      (child) => child.style.textDecoration === "none",
+    );
+  };
+
+  const bulkActionButtonDisplay = (buttonType, target) => {
+    if (target.length >= 2) {
+      buttonType.style.display = "";
+    } else {
+      buttonType.style.display = "none";
+    }
+  };
+
+  const toggleStrikeUnstrike = () => {
+    const strikeUnstrikeBtnArray = [
+      ...list.querySelectorAll(".options button"),
+    ].filter((btn) => {
+      return (
+        btn.textContent.trim() === "strike" ||
+        btn.textContent.trim() === "unstrike"
+      );
+    });
+
+    strikeUnstrikeBtnArray.forEach((btn) => {
+      if (
+        btn.parentElement.previousElementSibling.style.textDecoration ===
+        "line-through"
+      ) {
+        btn.textContent = "unstrike";
+      } else {
+        btn.textContent = "strike";
+      }
+    });
+  };
+
+  const updateUIState = () => {
+    bulkActionButtonDisplay(clearButton, getListItems());
+    bulkActionButtonDisplay(strikeAllButton, getUnstruckItems());
+    bulkActionButtonDisplay(unstrikeAllButton, getStruckItems());
+    listSectionDisplay();
+    toggleStrikeUnstrike();
   };
 
   elasticInputField(addListItemInput);
@@ -50,26 +133,32 @@ const initApp = () => {
     const newListItemValue = addListItemInput.value;
     const newListItem = document.createElement("li");
     newListItem.innerHTML = `<button class="strikeable" type="button">${newListItemValue}</button><span class="options displayNone"><button>remove</button> <button>modify</button><button>strike</button></span>`;
+    newListItem.querySelector(".strikeable").style.textDecoration = "none";
     list.append(newListItem);
     addListItemInput.value = "";
-    listSectionDisplay();
+    updateUIState();
     const option = newListItem.querySelector(".options");
 
     option.querySelectorAll("button").forEach((optionBtn) => {
       optionBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
         if (optionBtn.textContent === "remove") {
           optionBtn.closest("li").remove();
-          listSectionDisplay();
+          updateUIState();
         } else if (optionBtn.textContent === "strike") {
           optionBtn
             .closest("li")
             .querySelector(".strikeable").style.textDecoration = "line-through";
-          optionBtn.textContent = "unstrike";
+
+          updateUIState();
+          toggleStrikeUnstrike();
         } else if (optionBtn.textContent === "unstrike") {
           optionBtn
             .closest("li")
             .querySelector(".strikeable").style.textDecoration = "none";
-          optionBtn.textContent = "strike";
+
+          updateUIState();
+          toggleStrikeUnstrike();
         } else {
           taskManagementSection.classList.add("displayNone");
           modifyListItemSection.classList.remove("displayNone");
@@ -81,6 +170,7 @@ const initApp = () => {
             .closest("li")
             .querySelector(".strikeable");
         }
+        optionBtn.blur();
       });
     });
 
@@ -101,6 +191,7 @@ const initApp = () => {
         currentOption = option;
       }
     });
+    addListItemForm.querySelector("#add-list-item-btn").blur();
   });
 
   elasticInputField(modifyListItemInput);
@@ -141,6 +232,7 @@ const initApp = () => {
   cancelModifyButton.addEventListener("click", (event) => {
     listItemToModify = null;
     modifiedListItemValue = null;
+    modifyListItemInput.style.height = "auto";
     modifyListItemSection.classList.add("displayNone");
     taskManagementSection.classList.remove("displayNone");
     if (!confirmModifyButton.classList.contains("displayNone")) {
@@ -150,5 +242,25 @@ const initApp = () => {
 
   modifyListItemForm.addEventListener("submit", (event) => {
     event.preventDefault();
+  });
+
+  bulkActionBtns.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      if (btn.textContent.trim() === "Clear") {
+        clearParent(list);
+        updateUIState();
+      } else if (btn.textContent.trim() === "Strike All") {
+        getUnstruckItems().forEach((unstruckItem) => {
+          unstruckItem.style.textDecoration = "line-through";
+        });
+        updateUIState();
+      } else {
+        getStruckItems().forEach((struckItem) => {
+          struckItem.style.textDecoration = "none";
+        });
+        updateUIState();
+      }
+      btn.blur();
+    });
   });
 };

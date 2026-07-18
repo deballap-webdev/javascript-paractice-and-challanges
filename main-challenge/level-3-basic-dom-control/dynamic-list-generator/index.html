@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="A list generator and list management app"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dynamic list generator</title>
     <link rel="icon" href="img/list-items.png" type="image/png" />
@@ -31,8 +35,27 @@
           <button id="add-list-item-btn" type="submit">Add Item</button>
         </form>
 
+        <section class="guide-placeholder" id="guide-placeholder">
+          <h3 class="heading">No Items Yet</h3>
+          <p class="line-height-1.5">
+            Click on the input field above, type your list item and click the
+            add item button to create your first list item
+          </p>
+        </section>
+
         <section class="list-section" id="list-section">
-          <h3 class="heading">Your List</h3>
+          <div class="wrapper">
+            <h3 class="heading">Your List</h3>
+            <span class="bulk-action-btn-group" id="bulk-action-btn-group">
+              <button class="red-btn" id="clear-btn">Clear</button>
+              <button class="aliceblue-btn" id="strike-all-btn">
+                Strike All
+              </button>
+              <button class="aliceblue-btn" id="unstrike-all-btn">
+                Unstrike All
+              </button>
+            </span>
+          </div>
           <ul class="list"></ul>
         </section>
       </section>

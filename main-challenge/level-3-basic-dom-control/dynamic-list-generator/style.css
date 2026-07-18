@@ -13,17 +13,13 @@
   --BODY-FS: clamp(1.2rem, 2.5vh, 1.8rem);
 }
 
-body,
-html {
-  min-height: 100vh;
-}
-
 body {
+  min-height: 100vh;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  background-color: #3d5166;
+  background-color: #2b3a4a;
   color: #eee;
   font-size: var(--BODY-FS);
   font-family: "Poppins", sans-serif;
@@ -31,7 +27,10 @@ body {
 }
 
 main {
-  width: clamp(320px, 60vw, 800px);
+  width: clamp(320px, 65vw, 800px);
+  background-color: #344455;
+  padding: 1em;
+  border-radius: 16px;
 }
 
 h1 {
@@ -127,14 +126,18 @@ button:hover {
   transform: scale(0.95);
 }
 
-/* || List Section */
+/* || LIST AND PLACEHOLDER-GUIDE SECTION */
 
-.list-section {
+.list-section,
+.guide-placeholder {
   margin-top: 60px;
 }
 
 .list {
   padding: 10px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  flex-grow: 1;
 }
 
 .list li {
@@ -144,7 +147,7 @@ button:hover {
   justify-content: space-between;
 }
 
-.list li button:first-child {
+.list li button.strikeable {
   text-align: justify;
 }
 
@@ -162,12 +165,63 @@ button:hover {
 
 .options button {
   background-color: aliceblue;
+  color: #000;
+}
+
+.list li:hover .options {
+  display: flex;
+}
+
+/* Bulk Action Buttons */
+
+.options button,
+.bulk-action-btn-group button {
   padding-inline: 0.4em;
   border: 1px solid black;
   border-radius: 6px;
   text-decoration: none;
 }
 
-.list li:hover .options {
+.bulk-action-btn-group button {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.bulk-action-btn-group .red-btn {
+  color: aliceblue;
+  background-color: rgb(185, 45, 45);
+}
+
+.bulk-action-btn-group .aliceblue-btn {
+  background-color: aliceblue;
+  color: #000;
+}
+
+:is(.options button, .bulk-action-btn-group .aliceblue-btn):is(:hover, :focus) {
+  background-color: #000;
+  color: aliceblue;
+}
+
+.bulk-action-btn-group button:hover {
+  transform: scale(1.05);
+}
+
+:is(.options, .bulk-action-btn-group) button:active {
+  transform: scale(0.95);
+}
+
+.red-btn:hover {
+  filter: brightness(1.1);
+}
+
+.red-btn:active {
+  filter: brightness(1.2);
+  transform: scale(0.95);
+}
+
+.wrapper {
+  column-gap: 1.5rem;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
