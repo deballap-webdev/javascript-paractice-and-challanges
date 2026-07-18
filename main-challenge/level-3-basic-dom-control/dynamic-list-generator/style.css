@@ -144,6 +144,9 @@ button:hover {
   margin-bottom: 20px;
   display: flex;
   flex-flow: row wrap;
+  flex-grow: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
   justify-content: space-between;
 }
 
