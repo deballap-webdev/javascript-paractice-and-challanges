@@ -1,0 +1,17 @@
+body {
+  background-color: saddlebrown;
+  color: aliceblue;
+  font-size: 1.5rem;
+}
+
+pattern {
+  font-size: 1.5rem;
+}
+
+button {
+  font: inherit;
+  margin-inline: 1rem;
+  padding: 0.2em 0.5em;
+  border-radius: 6px;
+  font-weight: bolder;
+}
