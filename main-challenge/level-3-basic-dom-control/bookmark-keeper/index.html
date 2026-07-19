@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Bookmark Keeper</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Bookmark Keeper</h1>
+      <form id="websiteDetailsForm">
+        <div>
+          <label for="websiteName">Website Name</label>
+          <input
+            type="text"
+            name="websiteName"
+            id="websiteName"
+            placeholder="e.g. Google"
+            required
+          />
+        </div>
+        <div>
+          <label for="websiteURL" name="websiteURL">Website URL</label>
+          <input
+            type="text"
+            name="websiteURL"
+            id="websiteURL"
+            placeholder="e.g. https://www.google.com"
+            required
+          />
+        </div>
+
+        <button type="submit" id="submit-btn">🔖</button>
+        <ul id="websiteDetailsList"></ul>
+      </form>
+    </main>
+  </body>
+</html>
