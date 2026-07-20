@@ -69,7 +69,6 @@ const initApp = () => {
 
   const pushSavedBookmarks = () => {
     const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks"));
-    console.log(savedBookmarks);
     if (savedBookmarks) {
       websiteArray.push(...savedBookmarks);
     }
