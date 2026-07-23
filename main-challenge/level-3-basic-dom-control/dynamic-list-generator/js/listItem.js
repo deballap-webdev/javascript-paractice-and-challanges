@@ -1,4 +1,4 @@
-export class ListItem {
+export default class ListItem {
   constructor() {
     this._id = null;
     this._text = null;

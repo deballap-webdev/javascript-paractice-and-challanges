@@ -65,12 +65,17 @@ button:hover {
   left: 100000px;
 }
 
+/* || TOGGLE CLASSES */
 .displayFlex {
   display: flex;
 }
 
 .displayNone {
   display: none;
+}
+
+.strike {
+  text-decoration: line-through;
 }
 
 /* || Add Item Form */
@@ -141,6 +146,7 @@ button:hover {
 }
 
 .list li {
+  min-height: 48px;
   margin-bottom: 20px;
   display: flex;
   flex-flow: row wrap;
@@ -183,6 +189,8 @@ button:hover {
   border: 1px solid black;
   border-radius: 6px;
   text-decoration: none;
+  min-height: 48px;
+  min-width: 48px;
 }
 
 .bulk-action-btn-group button {

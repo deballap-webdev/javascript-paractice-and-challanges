@@ -1,4 +1,7 @@
-"use strict";
+import List from "./list.js";
+import ListItem from "./listItem.js";
+
+const listClass = new List();
 document.addEventListener("readystatechange", (event) => {
   if (event.target.readyState === "complete") {
     initApp();
@@ -6,6 +9,120 @@ document.addEventListener("readystatechange", (event) => {
 });
 
 const initApp = () => {
+  // Add Listeners
+  const addItemForm = document.querySelector("#add-list-item-form");
+  const list = document.querySelector("#list");
+  addItemForm
+    .querySelector("#add-list-input")
+    .addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addItemForm.requestSubmit();
+      }
+    });
+
+  addItemForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    processSubmition();
+  });
+
+  list.addEventListener("click", (event) => {
+    const currentTarget = event.target;
+    const currentAction = currentTarget.dataset.action;
+    if (!currentAction) return;
+    if (currentAction === "remove") {
+      const currentItemId = currentTarget.closest("span").id;
+      listClass.removeItemFromList(currentItemId);
+    } else if (currentAction === "modify") {
+    } else if (currentAction === "strike") {
+    } else {
+    }
+    reloadThePage();
+  });
+
+  // Procedural
+  //loadExistingItems();
+  reloadThePage();
+};
+
+const processSubmition = () => {
+  const newItemText = document.querySelector("#add-list-input").value;
+  const newItemId = generateId();
+  const newItem = createNewItem(newItemId, newItemText);
+  listClass.addItemToList(newItem);
+  reloadThePage();
+};
+
+const generateId = () => {
+  let newItemId = 1;
+  const listArray = listClass.getList();
+  if (listArray.length > 0) {
+    newItemId = listArray[listArray.length - 1] + 1;
+  }
+  return newItemId;
+};
+
+const createNewItem = (id, text) => {
+  const newItem = new ListItem();
+  newItem.setId(id);
+  newItem.setText(text);
+  return newItem;
+};
+
+const clearListDisplay = () => {
+  const list = document.querySelector("#list");
+  while (list.lastElementChild) {
+    list.lastElementChild.remove();
+  }
+};
+
+const clearaddItemInput = () => {
+  document.querySelector("#add-list-input").value = "";
+};
+
+const reloadThePage = () => {
+  clearaddItemInput();
+  clearListDisplay();
+  clearaddItemInput();
+  setFocusToAddItemInput();
+  render();
+};
+
+const render = () => {
+  clearListDisplay();
+  listClass.getList().forEach((listItem) => {
+    buildListItem(listItem);
+  });
+};
+
+const setFocusToAddItemInput = () => {
+  document.querySelector("#add-list-input").focus();
+};
+
+const buildListItem = (listItem) => {
+  const list = document.querySelector("#list");
+  const li = document.createElement("li");
+  const strikeableButton = document.createElement("button");
+  strikeableButton.className = "strikeable";
+  strikeableButton.textContent = listItem._text;
+  const span = document.createElement("span");
+  span.classList.add("options", "displayNone");
+  span.id = listItem._id;
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "remove";
+  removeBtn.dataset.action = "remove";
+  const modifyBtn = document.createElement("button");
+  modifyBtn.textContent = "modify";
+  modifyBtn.dataset.action = "modify";
+  const strikeBtn = document.createElement("button");
+  strikeBtn.textContent = "strike";
+  strikeBtn.dataset.action = "strike";
+  span.append(removeBtn, modifyBtn, strikeBtn);
+  li.append(strikeableButton, span);
+  list.append(li);
+};
+
+/* 
   let currentOption = null;
   let modifiedListItemValue = null;
   let listItemToModify = null;
@@ -263,4 +380,4 @@ const initApp = () => {
       btn.blur();
     });
   });
-};
+ */
